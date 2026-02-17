@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 🎉</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: radial-gradient(circle, #ff9a9e, #fad0c4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    #countdown {
+        font-size: 120px;
+        color: white;
+        font-weight: bold;
+        animation: pop 1s infinite;
+    }
+
+    #message {
+        display: none;
+        font-size: 60px;
+        color: #fff;
+        text-align: center;
+        animation: zoom 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+
+    @keyframes zoom {
+        from { transform: scale(1); }
+        to { transform: scale(1.1); }
+    }
+
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: red;
+        animation: confettiMove 3s linear infinite;
+    }
+
+    @keyframes confettiMove {
+        from { transform: translateY(0) rotate(0); }
+        to { transform: translateY(600px) rotate(360deg); }
+    }
+
+    .flower {
+        position: absolute;
+        top: -50px;
+        font-size: 30px;
+        animation: fall 6s linear infinite;
+    }
+
+    @keyframes fall {
+        from { transform: translateY(0); }
+        to { transform: translateY(100vh); }
+    }
+</style>
+</head>
+
+<body>
+
+<div id="countdown">3</div>
+<div id="message">🎂 Happy Birthday 🎉</div>
+
+<script>
+    let count = 3;
+    const countdown = document.getElementById("countdown");
+    const message = document.getElementById("message");
+
+    const timer = setInterval(() => {
+        count--;
+        if (count > 0) {
+            countdown.innerText = count;
+        } else {
+            clearInterval(timer);
+            countdown.style.display = "none";
+            message.style.display = "block";
+            startConfetti();
+            startFlowers();
+        }
+    }, 1000);
+
+    function startConfetti() {
+        for (let i = 0; i < 80; i++) {
+            let confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() < 0.5 ? "0px" : "100vw";
+            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            document.body.appendChild(confetti);
+        }
+    }
+
+    function startFlowers() {
+        for (let i = 0; i < 25; i++) {
+            let flower = document.createElement("div");
+            flower.className = "flower";
+            flower.innerText = "🌸";
+            flower.style.left = Math.random() * 100 + "vw";
+            flower.style.animationDuration = (Math.random() * 3 + 4) + "s";
+            document.body.appendChild(flower);
+        }
+    }
+</script>
+
+</body>
+</html>
